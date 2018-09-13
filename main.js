@@ -27,6 +27,7 @@ window.onload = () => cells.forEach((el, index) => el.dataset.id = index);
 
 
 const startGame = () => {
+    activePlayer = firstPlayer;
     document.querySelector('.text').textContent = `Сейчас ходят ${activePlayer.text}`;
     origBoard = Array.from(Array(9).keys());
     cells.forEach(el => {
@@ -74,7 +75,7 @@ const checkWin = (board, player) => {
     const plays = board.reduce((sum, currentItem, index) => (currentItem === player) ? sum.concat(index) : sum, []);
     let gameWon = null;
     for (let [index, win] of winCombosArr.entries()) {
-        if (win.every(el => plays.indexOf(el) > -1)) {
+        if (win.every(el => plays.includes(el))) {
             gameWon = {
                 index: index,
                 player: player
