@@ -50,6 +50,12 @@ const turnPlayer = () => {
 };
 
 const turnClick = (event) => {
+    origBoard.forEach((el, index) => {
+        if (el === 'X' || el === 'O') {
+            cells[index].removeEventListener('click', turnClick);
+            cells[index].removeEventListener('click', turnPlayer);
+        }
+    });
     const dataId = event.target.dataset.id;
     if (typeof origBoard[dataId] === 'number' && !checkTie(turn(dataId, activePlayer.character))) {
         turn(dataId, activePlayer.character);
